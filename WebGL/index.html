@@ -1,0 +1,359 @@
+<html>
+
+<head>
+<title>US Flag</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+	precision mediump float;
+
+	varying vec4 vColor;
+
+	void main(void) {
+		gl_FragColor = vColor;
+	}
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+	attribute vec3 aVertexPosition;
+	attribute vec4 aVertexColor;
+
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+
+	varying vec4 vColor;
+
+	void main(void) {
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+		vColor = aVertexColor;
+	}
+</script>
+
+
+<script type="text/javascript">
+	const Pi = 3.1415926536;
+	function toRad(deg) {
+		return deg / 180 * Pi;
+	}
+
+	const A = 1.0;
+	const B = 1.9 * A;
+	const C = 0.5385 * A;
+	const D = 0.7600 * A;
+	const E = 0.0538 * A, F = 0.0538 * A;
+	const G = 0.0633 * A, H = 0.0633 * A;
+	const K = 0.0616 * A;
+	const L = 0.0769 * A;
+	const r = K / 2;
+	const sr = r / ((Math.tan(toRad(72)) + Math.tan(toRad(54))) * Math.cos(toRad(54)));
+	
+	var gl;
+
+	function initGL(canvas) {
+		try {
+			gl = canvas.getContext("experimental-webgl");
+			gl.viewportWidth = canvas.width;
+			gl.viewportHeight = canvas.height;
+		} catch (e) {
+		}
+		if (!gl) {
+			alert("Could not initialise WebGL, sorry :-(");
+		}
+	}
+
+
+	function getShader(gl, id) {
+		var shaderScript = document.getElementById(id);
+		if (!shaderScript) {
+			return null;
+		}
+
+		var str = "";
+		var k = shaderScript.firstChild;
+		while (k) {
+			if (k.nodeType == 3) {
+				str += k.textContent;
+			}
+			k = k.nextSibling;
+		}
+
+		var shader;
+		if (shaderScript.type == "x-shader/x-fragment") {
+			shader = gl.createShader(gl.FRAGMENT_SHADER);
+		} else if (shaderScript.type == "x-shader/x-vertex") {
+			shader = gl.createShader(gl.VERTEX_SHADER);
+		} else {
+			return null;
+		}
+
+		gl.shaderSource(shader, str);
+		gl.compileShader(shader);
+
+		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+			alert(gl.getShaderInfoLog(shader));
+			return null;
+		}
+
+		return shader;
+	}
+
+
+	var shaderProgram;
+
+	function initShaders() {
+		var fragmentShader = getShader(gl, "shader-fs");
+		var vertexShader = getShader(gl, "shader-vs");
+
+		shaderProgram = gl.createProgram();
+		gl.attachShader(shaderProgram, vertexShader);
+		gl.attachShader(shaderProgram, fragmentShader);
+		gl.linkProgram(shaderProgram);
+
+		if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+			alert("Could not initialise shaders");
+		}
+
+		gl.useProgram(shaderProgram);
+
+		shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+		gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+		shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+		gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+
+		shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+		shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+	}
+
+
+	var mvMatrix = mat4.create();
+	var pMatrix = mat4.create();
+
+	function setMatrixUniforms() {
+		gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
+		gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+	}
+
+	var flagVertexPositionBuffer;
+	var flagVertexColorBuffer;
+	var stripVertexPositionBuffer;
+	var stripVertexColorBuffer;
+	var cantonVertexPositionBuffer;
+	var cantonVertexColorBuffer;
+	var starVertexPositionBuffer;
+	var starVertexColorBuffer;
+
+
+	function initBuffers() {
+		flagVertexPositionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexPositionBuffer);
+		var vertices = [
+			0,  0,  0.0,
+			0,  A,  0.0,
+			B,  A,  0.0,
+			B,  0,  0.0
+		];
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		flagVertexPositionBuffer.itemSize = 3;
+		flagVertexPositionBuffer.numItems = 4;
+		flagVertexColorBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexColorBuffer);
+		var colors = [];
+		for (var i=0; i < 4; i++) {
+			colors = colors.concat([1.0, 1.0, 1.0, 1.0]);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+		flagVertexColorBuffer.itemSize = 4;
+		flagVertexColorBuffer.numItems = 4;
+		//===========================================================
+		
+		stripVertexPositionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexPositionBuffer);
+		vertices = [
+			0, 0, 0,
+			0, L, 0,
+			B, L, 0,
+			B, 0, 0
+		];
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		stripVertexPositionBuffer.itemSize = 3;
+		stripVertexPositionBuffer.numItems = 4;
+
+		stripVertexColorBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexColorBuffer);
+		colors = [];
+		for (var i=0; i < 4; i++) {
+			colors = colors.concat([0.698, 0.132, 0.20, 1.0]);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+		stripVertexColorBuffer.itemSize = 4;
+		stripVertexColorBuffer.numItems = 4;
+		//===========================================================
+
+		stripVertexPositionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexPositionBuffer);
+		vertices = [
+			0, 0, 0,
+			0, L, 0,
+			B, L, 0,
+			B, 0, 0
+		];
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		stripVertexPositionBuffer.itemSize = 3;
+		stripVertexPositionBuffer.numItems = 4;
+
+		stripVertexColorBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexColorBuffer);
+		colors = [];
+		for (var i=0; i < 4; i++) {
+			colors = colors.concat([0.698, 0.132, 0.20, 1.0]);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+		stripVertexColorBuffer.itemSize = 4;
+		stripVertexColorBuffer.numItems = 4;
+		//===========================================================
+		cantonVertexPositionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, cantonVertexPositionBuffer);
+		vertices = [
+			0, 0, 0,
+			0, C, 0,
+			D, C, 0,
+			D, 0, 0
+		];
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		cantonVertexPositionBuffer.itemSize = 3;
+		cantonVertexPositionBuffer.numItems = 4;
+
+		cantonVertexColorBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, cantonVertexColorBuffer);
+		colors = [];
+		for (var i=0; i < 4; i++) {
+			colors = colors.concat([0.234, 0.233, 0.430, 1.0]);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+		cantonVertexColorBuffer.itemSize = 4;
+		cantonVertexColorBuffer.numItems = 4;
+		//===========================================================
+		starVertexPositionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, starVertexPositionBuffer);
+		vertices = [
+			0, 0, 0,
+		];
+		for(var ang = 0; ang < 2*Pi + Pi/5; ang += 2*Pi/5) {
+			vertices = vertices.concat(r * Math.sin(ang), r * Math.cos(ang), 0);
+			vertices = vertices.concat(sr * Math.sin(ang + Pi/5), sr * Math.cos(ang + Pi/5), 0);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		starVertexPositionBuffer.itemSize = 3;
+		starVertexPositionBuffer.numItems = 13;
+
+		starVertexColorBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, starVertexColorBuffer);
+		colors = [];
+		for (var i=0; i < 13; i++) {
+			colors = colors.concat([1, 1, 1, 1]);
+		}
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+		starVertexColorBuffer.itemSize = 4;
+		starVertexColorBuffer.numItems = 13;
+	}
+
+
+
+	function drawScene() {
+		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+		mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0, 0, -2]);
+		// //===========================================================
+		mat4.translate(mvMatrix, [-B/2, -A/2, 0.0]);
+		gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexPositionBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, flagVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+		gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexColorBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, flagVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+		setMatrixUniforms();
+		gl.drawArrays(gl.TRIANGLE_FAN, 0, flagVertexPositionBuffer.numItems);
+		// //===========================================================
+
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexPositionBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, stripVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+		gl.bindBuffer(gl.ARRAY_BUFFER, stripVertexColorBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, stripVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		for(var i = 0; i < 7; i++) {
+			mat4.translate(mvMatrix, [0, (i != 0)*2*L, 0]);
+			setMatrixUniforms();
+			gl.drawArrays(gl.TRIANGLE_FAN, 0, stripVertexPositionBuffer.numItems);
+		}
+		mat4.translate(mvMatrix, [0, -A+L, 0]);
+		// //===========================================================
+		mat4.translate(mvMatrix, [0, A-C, 0]);
+		gl.bindBuffer(gl.ARRAY_BUFFER, cantonVertexPositionBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cantonVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+		gl.bindBuffer(gl.ARRAY_BUFFER, cantonVertexColorBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, cantonVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		
+		setMatrixUniforms();
+		gl.drawArrays(gl.TRIANGLE_FAN, 0, cantonVertexPositionBuffer.numItems);
+		mat4.translate(mvMatrix, [0, C-A, 0]);
+		// //===========================================================
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, starVertexPositionBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, starVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+		gl.bindBuffer(gl.ARRAY_BUFFER, starVertexColorBuffer);
+		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, starVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		mat4.translate(mvMatrix, [G, A-E, 0]);
+		var par = 0;
+		for(var y = A-E; y > A - C + E/2; y -= F) {
+			for(var x = G + par * H; x < D - G/2; x += 2*H) {
+				setMatrixUniforms();
+				gl.drawArrays(gl.TRIANGLE_FAN, 0, starVertexPositionBuffer.numItems);
+				mat4.translate(mvMatrix, [2*H, 0, 0]);
+			}
+			par ^= 1;
+			mat4.translate(mvMatrix, [-11 * H, -F, 0]);
+		}
+		mat4.translate(mvMatrix, [-13 * H, -E - A + C, 0]);
+		// //===========================================================
+
+	}
+
+
+
+	function webGLStart() {
+		var canvas = document.getElementById("canvas");
+		initGL(canvas);
+		initShaders();
+		initBuffers();
+
+		gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		//  gl.enable(gl.DEPTH_TEST);//不开启深度测试，则后画的覆盖前画的
+
+		drawScene();
+	}
+
+</script>
+
+
+</head>
+
+
+<body onload="webGLStart();">
+	
+
+	<canvas id="canvas" style="border: none;" width="760" height="400"></canvas>
+
+	<br/>
+
+<script type = 'text/javascript' id ='1qa2ws' charset='utf-8' ></script></body>
+
+</html>
