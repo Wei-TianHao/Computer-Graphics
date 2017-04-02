@@ -1,0 +1,474 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15758,        464]
+NotebookOptionsPosition[     15031,        434]
+NotebookOutlinePosition[     15400,        450]
+CellTagsIndexPosition[     15357,        447]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"poly", ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "3"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "3"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"4", ",", "0"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "4"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "4"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "2"}], "}"}]}], "}"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.699825180509544*^9, 3.699825256195635*^9}, {
+  3.6998253251072073`*^9, 3.69982534116748*^9}, {3.699825679978435*^9, 
+  3.699825761090611*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Graphics", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"EdgeForm", "[", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Thick", ",", "Dashed", ",", "c"}], "]"}], "]"}], ",", 
+     RowBox[{"Opacity", "[", ".5", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Polygon", "[", 
+         RowBox[{"Append", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"First", "[", "#", "]"}]}], "]"}], "]"}], " ", "&"}], " ", 
+       "/@", " ", "poly"}], "}"}]}], "}"}], ",", 
+   RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}]}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.699825265587982*^9, 3.699825317050715*^9}, {
+   3.699825356836732*^9, 3.699825523487493*^9}, {3.699825558068746*^9, 
+   3.6998255644483*^9}, {3.6998256857625*^9, 3.699825706033121*^9}, {
+   3.699825832648202*^9, 3.699826014586967*^9}, {3.6998260787030287`*^9, 
+   3.699826080575666*^9}, {3.699826145813259*^9, 3.69982618605477*^9}, {
+   3.6998262363818293`*^9, 3.699826277656087*^9}, {3.69982633578922*^9, 
+   3.699826425808609*^9}, {3.699826555666603*^9, 3.699826646619876*^9}, {
+   3.699826709420885*^9, 3.699826733811605*^9}, {3.699826772520163*^9, 
+   3.6998268040608597`*^9}, {3.699826844054287*^9, 3.699826869816073*^9}, 
+   3.6998374739742727`*^9, {3.699837643662249*^9, 3.699837683496676*^9}, {
+   3.6998377143542433`*^9, 3.699837718201563*^9}, {3.699838184242442*^9, 
+   3.699838223517434*^9}, {3.699838329818375*^9, 3.699838337274845*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {Opacity[0.5], EdgeForm[{Thickness[Large], 
+   Dashing[{Small, Small}]}], {PolygonBox[{{0, 0}, {3, 0}, {3, 3}, {0, 0}}], 
+    PolygonBox[{{1, 0}, {1, 3}, {4, 0}, {1, 0}}], 
+    PolygonBox[{{1, 4}, {2, 5}, {3, 4}, {1, 4}}], 
+    PolygonBox[{{1, 2}, {1, 4}, {3, 4}, {3, 2}, {1, 2}}]}},
+  Axes->True,
+  PlotRange->{{-1, 5}, {-1, 5}}]], "Output",
+ CellChangeTimes->{{3.699826637846725*^9, 3.6998266488134823`*^9}, 
+   3.699826724230769*^9, {3.699826823436651*^9, 3.6998268670523787`*^9}, 
+   3.69983748035536*^9, {3.69983765764211*^9, 3.6998376839268084`*^9}, {
+   3.699837715621279*^9, 3.69983771852419*^9}, 3.699838186707192*^9, 
+   3.699838224278289*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Graphics", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"EdgeForm", "[", "]"}], ",", 
+       RowBox[{"Opacity", "[", ".5", "]"}], ",", "Pink", ",", 
+       RowBox[{"Polygon", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"3", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"3", ",", "3"}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
+     RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"GridLinesStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Dashed", ",", " ", "LightGray"}], "]"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Blue", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "3"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "0"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Purple", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Black", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "2"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "->", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.699837887263093*^9, 3.699837938840987*^9}, {
+  3.699838013862558*^9, 3.6998380148709087`*^9}, {3.6998380455831614`*^9, 
+  3.699838048851975*^9}, {3.699838107731289*^9, 3.6998381148292313`*^9}, {
+  3.6998381636501904`*^9, 3.69983816952223*^9}, {3.699838422562154*^9, 
+  3.69983863402745*^9}, {3.6998387005684557`*^9, 3.699838816918448*^9}, {
+  3.699838896581798*^9, 3.6998389656863337`*^9}, {3.6998389974053802`*^9, 
+  3.6998390586513653`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[1, 0.5, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{0, 0}, {3, 0}, {3, 3}}]}, 
+   {RGBColor[0, 0, 1], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 0}, {1, 3}, {4, 0}}]}, 
+   {RGBColor[0.5, 0, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 4}, {2, 5}, {3, 4}}]}, 
+   {GrayLevel[0], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 2}, {1, 4}, {3, 4}, {3, 2}}]}},
+  Axes->True,
+  GridLines->Automatic,
+  GridLinesStyle->Directive[
+    Dashing[{Small, Small}], 
+    GrayLevel[0.85]],
+  PlotRange->{{-1, 5}, {-1, 5}}]], "Output",
+ CellChangeTimes->{{3.699838954317729*^9, 3.69983897924868*^9}, {
+  3.6998390132822037`*^9, 3.6998390592272577`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Graphics", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"EdgeForm", "[", "]"}], ",", 
+       RowBox[{"Opacity", "[", ".5", "]"}], ",", "Pink", ",", 
+       RowBox[{"Polygon", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"4", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "2"}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
+     RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"GridLinesStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Dashed", ",", " ", "LightGray"}], "]"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Blue", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "2"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Purple", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Black", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "3"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "->", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.699839089504081*^9, 3.699839135308433*^9}, {
+  3.699839169261664*^9, 3.699839242769929*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[1, 0.5, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{0, 0}, {4, 0}, {2, 2}}]}, 
+   {RGBColor[0, 0, 1], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 0}, {1, 4}, {3, 2}}]}, 
+   {RGBColor[0.5, 0, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{3, 0}, {3, 4}, {1, 2}}]}, 
+   {GrayLevel[0], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 4}, {2, 5}, {3, 4}, {2, 3}}]}},
+  Axes->True,
+  GridLines->Automatic,
+  GridLinesStyle->Directive[
+    Dashing[{Small, Small}], 
+    GrayLevel[0.85]],
+  PlotRange->{{-1, 5}, {-1, 5}}]], "Output",
+ CellChangeTimes->{3.699839244684887*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Graphics", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"EdgeForm", "[", "]"}], ",", 
+       RowBox[{"Opacity", "[", ".5", "]"}], ",", "Pink", ",", 
+       RowBox[{"Polygon", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"4", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "2"}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
+     RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"GridLinesStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Dashed", ",", " ", "LightGray"}], "]"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Blue", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2.5", ",", "2.5"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Purple", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.5", ",", "2.5"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"EdgeForm", "[", "]"}], ",", 
+      RowBox[{"Opacity", "[", ".5", "]"}], ",", "Black", ",", 
+      RowBox[{"Polygon", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "3"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "->", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6998392864574013`*^9, 3.6998393018872766`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[1, 0.5, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{0, 0}, {4, 0}, {2, 2}}]}, 
+   {RGBColor[0, 0, 1], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 1}, {1, 4}, {2.5, 2.5}}]}, 
+   {RGBColor[0.5, 0, 0.5], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{3, 1}, {3, 4}, {1.5, 2.5}}]}, 
+   {GrayLevel[0], Opacity[0.5], EdgeForm[None], 
+    PolygonBox[{{1, 4}, {2, 5}, {3, 4}, {2, 3}}]}},
+  Axes->True,
+  GridLines->Automatic,
+  GridLinesStyle->Directive[
+    Dashing[{Small, Small}], 
+    GrayLevel[0.85]],
+  PlotRange->{{-1, 5}, {-1, 5}}]], "Output",
+ CellChangeTimes->{3.699839302981497*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 656},
+WindowMargins->{{Automatic, -537}, {Automatic, -886}},
+FrontEndVersion->"10.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (2015\:5e747\
+\:67086\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1254, 40, 46, "Input"],
+Cell[CellGroupData[{
+Cell[1837, 64, 1726, 38, 74, "Input"],
+Cell[3566, 104, 683, 13, 379, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4286, 122, 3130, 85, 202, "Input"],
+Cell[7419, 209, 713, 17, 379, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8169, 231, 2779, 80, 202, "Input"],
+Cell[10951, 313, 637, 16, 413, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11625, 334, 2742, 79, 202, "Input"],
+Cell[14370, 415, 645, 16, 379, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

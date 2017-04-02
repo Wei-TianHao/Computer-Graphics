@@ -1,0 +1,14 @@
+
+
+! LaTeX Error: *** this package currently works only with XeTeX ***
+ You are not using XeTeX, so we are exiting cleanly!
+ Continuing may lead to 'unavailable font metrics' errors!
+.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.113 ...sname\relax\expandafter\notXeTeXformat\fi
+                                                  
+? 

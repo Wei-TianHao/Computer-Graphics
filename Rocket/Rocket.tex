@@ -1,0 +1,124 @@
+%============================总模板================================
+
+\documentclass[a4paper,10pt]{article} % Default font size and paper size
+
+%======页边距=======
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=-1cm}
+
+%=====格式=====
+\usepackage{xunicode,xltxtra,url,parskip} % Formatting packages
+\usepackage{multicol} % 使用分栏
+\usepackage[usenames,dvipsnames]{xcolor} % Required for specifying custom colors
+\usepackage{titlesec} % Used to customize the \section command
+
+%scshape 大写 \raggedright 防止右侧过于参差不齐
+\titleformat{\section}{\LARGE\bfseries\scshape\raggedright}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\Large\bfseries\raggedright}{}{0em}{}
+\titleformat{\subsubsection}{\large\bfseries\raggedright}{}{0em}{}
+\titleformat{\paragraph}{\large\bfseries\raggedright}{}{0em}{}
+\titleformat{\subparagraph}{\large\bfseries\raggedright}{}{0em}{}
+
+\titlespacing{\section}{0pt}{3pt}{3pt} % Spacing around sections
+
+
+%====删除页码====
+\pagestyle{empty} % Removes page numbering
+
+%======中文=======
+\usepackage{fontspec} % For loading fonts
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[SmallCapsFont = Fontin SmallCaps]{Fontin} % Main document font
+\usepackage{xeCJK} % 可以使用中文，而且有粗体，斜体
+\setCJKmainfont{宋体-简 常规体} % 设置默认中文字体，不影响默认英文字体
+\newCJKfontfamily\Hei{冬青黑体简体中文 W3}   %定義指令\Hei則切換成正黑體
+
+%======代码设置=======
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, breaklines=true, tabsize=4, frame=single, numbers = left, numberstyle = \tiny, keywordstyle= \color{ blue!70}, commentstyle=\color{red!50!green!50!blue!50}}
+
+%=====超链接=====
+\usepackage{hyperref} % Required for adding links	and customizing them
+\definecolor{linkcolour}{rgb}{0,0.2,0.6} % Link color
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour} % Set link colors throughout the document
+
+
+%======正文开始=======
+\pagestyle{empty}
+\begin{document}
+\title{\Huge CG Assignment 3 Rocket}
+\author{魏天昊 | Tianhao \textsc{Wei}\\ 3150104461}
+\centering{
+{\Huge CG Assignment 3 Rocket \par}
+\par{
+\large
+魏天昊 | Tianhao \textsc{Wei}\\ 3150104461
+}
+\par
+}
+
+
+\section{method 1} {
+	\begin{multicols}{2}
+		{\large
+		\begin{tabular}{l|r}
+		\multicolumn{2}{c}{}\\
+		\multicolumn{2}{c}{}\\
+		Triangle 1& $T(1,0) \cdot S(3,3) \cdot R(0) \cdot A_t $ \\ \multicolumn{2}{c}{}\\
+		Triangle 2& $T(3,0) \cdot S(3,3) \cdot R(\frac{\pi}{2}) \cdot A_t $ \\\multicolumn{2}{c}{} \\
+		Triangle 3& $T(\frac{3}{2}, 5) \cdot S(1,1) \cdot R(-\frac{3\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Square& $T(1,2) \cdot S(2,2) \cdot R(0) \cdot  A_s $\\
+		\end{tabular}
+		}
+	\columnbreak
+	\hfill \includegraphics[scale=0.4]{p1.png}
+	\end{multicols}
+}
+
+\section{method 2}{
+	\begin{multicols}{2}
+		{\large
+		\begin{tabular}{l|r}
+		\multicolumn{2}{c}{}\\
+		\multicolumn{2}{c}{}\\
+		Triangle 1& $T(2,2) \cdot S(2\sqrt{2},2\sqrt{2}) \cdot R(-\frac{3\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Triangle 2& $T(\frac{3}{2},\frac{5}{2}) \cdot S(\frac{3\sqrt{2}}{2},\frac{3\sqrt{2}}{2}) \cdot R(-\frac{\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Triangle 3& $T(\frac{5}{2},\frac{5}{2}) \cdot S(\frac{3\sqrt{2}}{2},\frac{3\sqrt{2}}{2}) \cdot R(\frac{3\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Square& $T(2,3) \cdot S(\sqrt{2},\sqrt{2}) \cdot R(-\frac{\pi}{4}) \cdot A_s $\\
+		\end{tabular}
+		}
+	\columnbreak
+	\hfill \includegraphics[scale=0.4]{p2.png}
+	\end{multicols}
+}
+
+\section{method 3}{
+	\begin{multicols}{2}
+		{\large
+		\begin{tabular}{l|r}
+		\multicolumn{2}{c}{}\\
+		\multicolumn{2}{c}{}\\
+		Triangle 1& $T(2,2) \cdot S(2\sqrt{2},2\sqrt{2}) \cdot R(-\frac{3\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Triangle 2& $T(1,2) \cdot S(2\sqrt{2},2\sqrt{2}) \cdot R(-\frac{\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Triangle 2& $T(3,2) \cdot S(2\sqrt{2},2\sqrt{2}) \cdot R(\frac{3\pi}{4}) \cdot A_t $\\ \multicolumn{2}{c}{}\\
+		Square& $T(2,3) \cdot S(\sqrt{2},\sqrt{2}) \cdot R(-\frac{\pi}{4}) \cdot A_s $\\
+		\end{tabular}
+		}
+	\columnbreak
+	\hfill \includegraphics[scale=0.4]{p3.png}
+	\end{multicols}
+}
+
+\end{document}
+
+
+%=====插入代码=====
+
+\begin{lstlisting}[language=C++]
+struct BitmapFileHeader           
+{
+	unsigned int   bfOffBits;
+}
+\end{lstlisting}
+%=====插入代码=====

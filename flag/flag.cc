@@ -20,7 +20,7 @@ const GLfloat Pi = 3.1415926536f;
 int sgn(double x) {
 	return x < -1e-9 ? -1 : x > 1e-9;
 }
-void drawPolygon() {
+void e() {
 	
 	double C = 0.5385 * A;
 	double D = 0.7600 * A;
