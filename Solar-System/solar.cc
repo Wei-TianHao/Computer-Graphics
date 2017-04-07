@@ -1,10 +1,3 @@
-//
-//  main.cpp
-//  OpenGL_test
-//
-//  Created by WTH on 2017/3/5.
-//
-//
 #include <cstdio>
 #include <GLUT/GLUT.h>
 #include <set>
@@ -12,8 +5,8 @@
 #include <cmath>
 using namespace std;
 #define sqr(x) ((x)*(x))
-const int WIDTH = 500;
-const int HEIGHT = 500;
+int WIDTH = 500;
+int HEIGHT = 500;
 const GLfloat R = 0.5f;
 const GLfloat Pi = 3.1415926536f;
 bool keys[1024];
@@ -65,7 +58,7 @@ void init(void)
 	glEnable(GL_LIGHT0);
 	glEnable(GL_CULL_FACE);
 	glClearColor (0.0, 0.0, 0.0, 0.0); //背景黑色
-	gluPerspective(45, (GLfloat)WIDTH/(GLfloat)HEIGHT, 1.0f, 3000.0f);
+	gluPerspective(45.0, (GLfloat)WIDTH/(GLfloat)HEIGHT, 1.0f, 3000.0f);
 }
 void prt(vec3 a) {
 	printf("%.1lf %.1lf %.1lf\n", a.x, a.y, a.z);
@@ -81,37 +74,41 @@ void display(void)
 	if(keys['s']) u = u - 0.5 * v;
 	if(keys['d']) u = u + 0.5 * t;
 	if(keys['a']) u = u - 0.5 * t;
+	if(keys[' ']) u = u + 0.5 * n;
+	if(keys['x']) u = u - 0.5 * n;
 	vec3 ov = u+v;
 	gluLookAt(u.x, u.y, u.z,  ov.x, ov.y, ov.z,  n.x, n.y, n.z);
-	//=============== draw sun ================
 	GLfloat pos[] = {0., 0., 0.};
+	GLfloat zero[] = {0.05, 0.05, 0.05, 1.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
-	GLfloat sun_emi[] = {1., .5, .3, 0.5};
-
+	//=============== draw sun ================
+	GLfloat sun_emi[] = {1., .5, .3, 1.0};
 	glMaterialfv(GL_FRONT, GL_EMISSION, sun_emi);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, sun_emi);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, zero);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, zero);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, zero);
 	GLUquadric *quad;
 	quad = gluNewQuadric();
 	gluSphere(quad, sun.r, 100, 20);
 	
 	//=============== draw earth ================
 	glPushMatrix();
-		GLfloat earth_emi[] = {0., 0., 0., 1.0};
 		GLfloat earth_amb[] = {0., 0.4, 1., 1.0};
-		glMaterialfv(GL_FRONT, GL_EMISSION, earth_emi);
-		glMaterialfv(GL_FRONT, GL_AMBIENT, sun_emi);
-		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, earth_amb);
+		glMaterialfv(GL_FRONT, GL_EMISSION, zero);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, zero);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, earth_amb);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, zero);
 		quad = gluNewQuadric();
 		glRotatef(earth.v * glutGet(GLUT_ELAPSED_TIME), earth.ax.x, earth.ax.y, earth.ax.z);
 		glTranslatef(earth.dis, 0, 0);
 		gluSphere(quad, earth.r, 100, 20);
 		//=============== draw moon ================
 		glPushMatrix();
-			GLfloat moon_emi[] = {0., 0., 0., 1.0};
 			GLfloat moon_amb[] = {0.6, 0.6, 0.6, 1.0};
-			glMaterialfv(GL_FRONT, GL_EMISSION, moon_emi);
-			glMaterialfv(GL_FRONT, GL_AMBIENT, sun_emi);
-			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, moon_amb);
+			glMaterialfv(GL_FRONT, GL_EMISSION, zero);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, zero);
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, moon_amb);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, zero);
 			quad = gluNewQuadric();
 			glRotatef(moon.v * glutGet(GLUT_ELAPSED_TIME), moon.ax.x, moon.ax.y, moon.ax.z);
 			glTranslatef(0, moon.dis, 0);
@@ -145,7 +142,9 @@ void keyboardUpCB(unsigned char key, int x, int y) {
 }
 void reshape (int w, int h)
 {
-	glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
+	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+	WIDTH = w;
+	HEIGHT = h;
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
 	gluPerspective(60.0, (GLfloat) w/(GLfloat) h, 1.0, 3000.0);
@@ -157,7 +156,7 @@ void reshape (int w, int h)
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitWindowSize (500, 500); 
+	glutInitWindowSize (WIDTH, HEIGHT); 
 	glutInitWindowPosition (100, 100);
 	glutCreateWindow ("Solar System");
 
@@ -168,7 +167,7 @@ int main(int argc, char** argv)
 	glutPassiveMotionFunc(mouseCB);
 	glutKeyboardFunc(keyboardCB);
 	glutKeyboardUpFunc(keyboardUpCB);
-
+	
 	glutDisplayFunc(display);
 	glutIdleFunc(display);
 
