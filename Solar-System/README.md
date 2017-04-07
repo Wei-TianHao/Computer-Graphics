@@ -6,6 +6,10 @@
 
 g++ -std=c++11 solar.cc -o solar -framework GLUT -framework OpenGL -framework Cocoa
 
+There may be some cross-platform issue, but the code works fine in macOS Sierra. 
+
+I use sublime text to excute the compiling command, and it may be different if you use bash or cmd. I didn't figure out why…So if you can run the excutable file directly, try not to compile it again.
+
 
 
 ### Run:
@@ -112,10 +116,6 @@ double My = 0;
    }
    ```
 
-   ​
-
-   ​
-
 2. ##### Keyboard Callback Function:
 
    Use this trick can enable the movement in synthetic directions, like up-left.
@@ -130,10 +130,6 @@ double My = 0;
    	glutPostRedisplay();
    }
    ```
-
-   ​
-
-   ​
 
 3. ##### Reshape Function:
 
@@ -250,7 +246,8 @@ double My = 0;
 
 
 
-#### Screen Shot:
+
+### Screen Shot:
 
 ![pic1](/Users/wth/Desktop/CG/Solar-System/pic1.png)
 
